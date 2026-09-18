@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@theme inline {
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+  --color-wintergreen: #3f7b3c;
+  --color-ink: #000000;
+  --color-paper: #f7f7f4;
+  --color-mist: #eeeeea;
+  --color-charcoal: #111111;
+}
+
+:root { color-scheme: light; }
+html { scroll-behavior: auto; }
+body {
+  @apply bg-white font-sans text-ink antialiased overflow-x-hidden;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: #3f7b3c; color: #fff; }
+:focus-visible { outline: 2px solid #3f7b3c; outline-offset: 4px; }
+section[id] { scroll-margin-top: 76px; }
+
+.text-outline-light { -webkit-text-stroke: 1px rgb(255 255 255 / 0.18); color: transparent; }
+.text-outline-dark { -webkit-text-stroke: 1px rgb(0 0 0 / 0.12); color: transparent; }
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+}
+
+/* Separate image drift from image hover transforms to avoid tween conflicts. */
+.parallax-layer { backface-visibility: hidden; }
+.scroll-type-track { white-space: nowrap; }
+[data-xp-panel]:not(:first-child) { clip-path: inset(100% 0 0 0); }
+
+@keyframes scrollline {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.scrollline { animation: scrollline 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+
+/* Keyboard users must never have to wait for a reveal to reach a control. */
+[data-fade]:focus-within,
+[data-property-detail]:focus-within {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+[data-property-story]:focus-within [data-property-frame] { clip-path: inset(0) !important; }
+
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .has-cursor, .has-cursor * { cursor: none !important; }
+}
+
+/* Printing and reduced motion both render the complete static narrative. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-mask], [data-fade], [data-stat], [data-property-detail] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .parallax-layer, .scroll-type-track { transform: none !important; }
+  [data-xp-sticky-column] { display: none; }
+  [data-xp-story-grid] { display: block; }
+  [data-xp-mobile-frame] { display: block; max-width: 70rem; margin-inline: auto; }
+  [data-xp-block] { min-height: auto; }
+}
+
+@media print {
+  [data-mask], [data-fade], [data-stat], [data-property-detail] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .parallax-layer, .scroll-type-track { transform: none !important; }
+}
