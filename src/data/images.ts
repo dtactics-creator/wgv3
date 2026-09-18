@@ -4,19 +4,19 @@ const px = (id: number, w = 1920) =>
 export const IMAGES = {
   hero: "/img/Modern commercial architecture.webp",
   intro: "/img/Modern commercial architecture.webp",
-  about: "/img/Commercial-Asset.png",
+  about: "/img/Commercial-Asset.webp",
   expertise: {
-    industrial: "/img/Industrial Spaces.png",
-    plots: "/img/Industrial Plots.png",
-    commercial: "/img/Commercial architecture.png",
-    agricultural: "/img/Agricultural Lands.jpeg",
-    estate: "/img/Estates.jpeg",
+    industrial: "/img/Industrial Spaces.webp",
+    plots: "/img/Industrial Plots.webp",
+    commercial: "/img/Commercial architecture.webp",
+    agricultural: "/img/Agricultural Lands.webp",
+    estate: "/img/Estates.webp",
   },
   properties: {
     facility: px(6060193, 1800), // RETAINED UNCHANGED as required
-    commercial: "/img/Commercial architecture1.png",
-    land: "/img/Industrial Land.png",
-    agriculturalEstate: "/img/Agricultural-Estate.jpeg",
+    commercial: "/img/Commercial architecture1.webp",
+    land: "/img/Industrial Land.webp",
+    agriculturalEstate: "/img/Agricultural-Estate.webp",
   },
-  cta: "/img/Estates.png",
+  cta: "/img/Estates.webp",
 } as const;

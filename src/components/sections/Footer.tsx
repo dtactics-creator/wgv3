@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Logo tone="light" size="md" layout="row" />
-            <p className="font-display mt-10 text-2xl font-medium italic leading-snug text-white/85 md:text-3xl">
+            <p className="font-display mt-10 text-2xl font-medium italic leading-snug text-white/85 md:ltext-3xl">
               Exceptional Properties.
               <br />
               Enduring <span className="text-white">Value.</span>

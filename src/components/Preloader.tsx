@@ -22,6 +22,7 @@ export default function SiteLoader({ children }: { children: ReactNode }) {
     const finish = () => {
       if (finished) return;
       finished = true;
+      if (root) root.style.display = "none";
       document.documentElement.style.overflow = previousOverflow;
       setReady(true);
     };
@@ -32,13 +33,11 @@ export default function SiteLoader({ children }: { children: ReactNode }) {
       if (preference.matches) { finish(); return; }
       timeline = gsap.timeline({ onComplete: finish });
       timeline
-        .fromTo("[data-loader-mark]", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0)
-        .fromTo("[data-letter]", { yPercent: 115 }, { yPercent: 0, duration: 0.55, stagger: 0.018, ease: "power4.out" }, 0.08)
-        .fromTo("[data-loader-sub]", { opacity: 0 }, { opacity: 1, duration: 0.45 }, 0.3)
-        .fromTo("[data-loader-line]", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 0.4)
-        .to("[data-loader-body]", { opacity: 0, y: -18, duration: 0.22 }, 0.95)
-        .to(root, { yPercent: -100, duration: 0.7, ease: "power4.inOut" }, 1.1);
+        .fromTo("[data-loader-mark]", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0)
+        .to("[data-loader-body]", { opacity: 0, y: -12, duration: 0.3 }, 0.7)
+        .to(root, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 0.95);
     }, root);
+
     const onPreference = () => {
       if (preference.matches) { timeline?.kill(); finish(); }
     };
@@ -46,7 +45,6 @@ export default function SiteLoader({ children }: { children: ReactNode }) {
     return () => {
       window.clearTimeout(safety);
       preference.removeEventListener("change", onPreference);
-      context.revert();
       document.documentElement.style.overflow = previousOverflow;
     };
   }, []);
@@ -57,17 +55,6 @@ export default function SiteLoader({ children }: { children: ReactNode }) {
         <div ref={rootRef} aria-hidden="true" className="site-loader pointer-events-none fixed inset-0 z-[200] flex items-center justify-center bg-ink">
           <div data-loader-body className="flex flex-col items-center">
             <div data-loader-mark><Logo tone="light" size="md" /></div>
-            <div className="mt-10 flex overflow-hidden">
-              {"WinterGreen".split("").map((letter, i) => (
-                <span key={i} className="inline-block overflow-hidden">
-                  <span data-letter className="font-display inline-block text-2xl font-semibold tracking-[0.28em] text-white md:text-4xl">{letter}</span>
-                </span>
-              ))}
-            </div>
-            <span data-loader-sub className="mt-4 text-[9px] font-medium uppercase tracking-[0.38em] text-wintergreen md:text-[10px]">
-              Timeless&nbsp;Properties.&nbsp;Evergreen&nbsp;Value
-            </span>
-            <span data-loader-line className="mt-8 block h-px w-16 origin-left bg-wintergreen/70" />
           </div>
         </div>
       )}
