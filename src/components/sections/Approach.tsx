@@ -35,9 +35,9 @@ export default function Approach() {
         <Eyebrow index="07" className="mb-10 md:mb-16">Our approach</Eyebrow>
         <div className="grid gap-14 lg:grid-cols-12">
           <div ref={headingRef} className="lg:col-span-8">
-            <h2 className="font-display text-[clamp(2.6rem,6.2vw,5.8rem)] font-medium uppercase leading-[1.02]">
-              <Mask><span className="inline-block pr-4">From opportunity</span></Mask>
-              <Mask><span className="inline-block pr-4">to <em className="italic">ownership.</em></span></Mask>
+            <h2 className="font-display text-[clamp(2rem,6.2vw,5.8rem)] font-medium uppercase leading-[1.02] md:text-[clamp(2.6rem,6.2vw,5.8rem)]">
+              <Mask>From opportunity</Mask>
+              <Mask>to <em className="italic">ownership.</em></Mask>
             </h2>
           </div>
           <div className="self-end lg:col-span-4">
@@ -48,7 +48,7 @@ export default function Approach() {
         </div>
 
         <div className="relative mt-16 md:mt-24">
-          <ol ref={listRef} className="grid grid-cols-2 gap-0 sm:grid-cols-3 lg:grid-cols-5">
+          <ol ref={listRef} className="grid grid-cols-1 gap-0 min-[360px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             {approachSteps.map((step) => (
               <li key={step.num} data-step className="relative px-0 pt-8 pb-4 pr-6">
                 <div className="flex flex-col gap-3">

@@ -9,8 +9,8 @@ export const company = {
   incorporated: "24 October 2025",
   roc: "ROC Chennai",
   status: "Active",
-  email: "hello@wintergreenrealty.in",
-  phone: "+91 90000 00000",
+  email: "enquiry@wintergreenrealty.com",
+  phone: "",
   phoneNote: "Placeholder — to be replaced with the office line",
   location: "Chennai · Tamil Nadu · India",
 } as const;
@@ -127,5 +127,6 @@ export const interests = [
   "Commercial Property",
   "Agricultural Land",
   "Estate",
+  "Others",
 ] as const;
 

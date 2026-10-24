@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap, clipReveal, fadeUp, maskReveal, parallax } from "@/lib/gsap";
 import { useScrollScene } from "@/hooks/use-scroll-scene";
 import { properties, type Property } from "@/data/properties";
@@ -15,29 +16,42 @@ const LAYOUTS = [
 ];
 
 function PropertyCard({ item, index, aspect }: { item: Property; index: number; aspect: string }) {
+  const detailHref = `/properties/${item.id}`;
+
   return (
-    <a href="#contact" data-cursor="VIEW" aria-label={`${item.title} — ${item.location}. Enquire for details.`} className="group block">
-      <div data-property-frame className={`relative overflow-hidden bg-ink ${aspect}`}>
-        <div data-property-parallax className="parallax-layer absolute -inset-y-[16%] inset-x-0">
-          <Image src={item.image} alt={item.alt} fill sizes="(min-width: 768px) 55vw, 100vw" className="object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-focus-visible:scale-[1.04]" />
+    <Link
+      href={detailHref}
+      data-cursor="VIEW"
+      aria-label={`${item.title} — ${item.location}. View details.`}
+      className="group block text-inherit no-underline hover:no-underline"
+    >
+      <article className="block">
+        <div data-property-frame className={`relative overflow-hidden bg-ink ${aspect}`}>
+          <div data-property-parallax className="parallax-layer absolute -inset-y-[16%] inset-x-0">
+            <Image src={item.image} alt={item.alt} fill sizes="(min-width: 768px) 55vw, 100vw" className="object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-focus-visible:scale-[1.04]" />
+          </div>
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/50 via-ink/5 to-transparent opacity-70 transition-opacity duration-700 group-hover:opacity-90" />
+          <span className="absolute left-5 top-5 border border-white/25 bg-ink/30 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[0.32em] text-white/80 backdrop-blur-sm">{item.status}</span>
+          <span data-property-number aria-hidden="true" className="font-display absolute bottom-6 right-6 text-5xl font-medium italic text-white/50 transition-colors duration-700 group-hover:text-wintergreen">{String(index + 1).padStart(2, "0")}</span>
+          <span aria-hidden="true" className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-wintergreen transition-transform duration-700 ease-out group-hover:scale-x-100" />
         </div>
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/50 via-ink/5 to-transparent opacity-70 transition-opacity duration-700 group-hover:opacity-90" />
-        <span className="absolute left-5 top-5 border border-white/25 bg-ink/30 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[0.32em] text-white/80 backdrop-blur-sm">{item.status}</span>
-        <span data-property-number aria-hidden="true" className="font-display absolute bottom-6 right-6 text-5xl font-medium italic text-white/50 transition-colors duration-700 group-hover:text-wintergreen">{String(index + 1).padStart(2, "0")}</span>
-        <span aria-hidden="true" className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-wintergreen transition-transform duration-700 ease-out group-hover:scale-x-100" />
-      </div>
-      <div data-property-detail className="mt-7 flex flex-wrap items-end justify-between gap-6 border-t border-ink/10 pt-6">
-        <div>
-          <p className="text-[9px] font-semibold uppercase tracking-[0.34em] text-wintergreen">{item.category}</p>
-          <h3 className="font-display mt-3 text-2xl font-medium uppercase leading-tight md:text-3xl">{item.title}</h3>
-          <p className="mt-2 text-[10px] font-medium uppercase tracking-[0.26em] text-black/45">{item.location}</p>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-black/60">{item.description}</p>
+
+        <div data-property-detail className="mt-7 flex flex-wrap items-end justify-between gap-6 border-t border-ink/10 pt-6">
+          <div>
+            <p className="text-[9px] font-semibold uppercase tracking-[0.34em] text-wintergreen">{item.category}</p>
+            <div className="mt-3 inline-flex items-center gap-2 font-display text-2xl font-medium uppercase leading-tight text-inherit md:text-3xl">
+              <span>{item.title}</span>
+              <Arrow className="h-3.5 w-3.5 transition-transform duration-500 ease-out group-hover:translate-x-1.5" />
+            </div>
+            <p className="mt-2 text-[10px] font-medium uppercase tracking-[0.26em] text-black/45">{item.location}</p>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-black/60">{item.description}</p>
+          </div>
+          <span className="inline-flex items-center gap-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-ink">
+            Read More<Arrow className="h-3.5 w-3.5 transition-transform duration-500 ease-out group-hover:translate-x-1.5" />
+          </span>
         </div>
-        <span className="inline-flex items-center gap-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-ink">
-          View Opportunity<Arrow className="h-3.5 w-3.5 transition-transform duration-500 ease-out group-hover:translate-x-1.5" />
-        </span>
-      </div>
-    </a>
+      </article>
+    </Link>
   );
 }
 

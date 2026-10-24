@@ -6,6 +6,8 @@ import { useScrollScene } from "@/hooks/use-scroll-scene";
 import { useReady } from "@/components/Preloader";
 import { Action, Mask } from "@/components/ui";
 
+const HERO_INTRO_PLAYED_KEY = "wintergreen-hero-intro-played";
+
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
@@ -19,11 +21,16 @@ export default function Hero() {
     // Entrance and scroll use separate nested layers, so they never fight.
     if (!entered.current && window.scrollY < window.innerHeight * 0.6) {
       entered.current = true;
-      gsap.timeline({ defaults: { ease: "power4.out" } })
-        .fromTo("[data-hero-image]", { scale: 1.14 }, { scale: 1, duration: 2.4, ease: "power2.out" }, 0)
-        .fromTo("[data-mask]", { yPercent: 110 }, { yPercent: 0, duration: 1.25, stagger: 0.14 }, 0.08)
-        .fromTo("[data-hero-fade]", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95, stagger: 0.09 }, 0.45)
-        .fromTo("[data-hero-accent]", { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0.2);
+      if (window.sessionStorage.getItem(HERO_INTRO_PLAYED_KEY) !== "true") {
+        gsap.timeline({
+          defaults: { ease: "power4.out" },
+          onComplete: () => window.sessionStorage.setItem(HERO_INTRO_PLAYED_KEY, "true"),
+        })
+          .fromTo("[data-hero-image]", { scale: 1.14 }, { scale: 1, duration: 2.4, ease: "power2.out" }, 0)
+          .fromTo("[data-mask]", { yPercent: 110 }, { yPercent: 0, duration: 1.25, stagger: 0.14 }, 0.08)
+          .fromTo("[data-hero-fade]", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95, stagger: 0.09 }, 0.45)
+          .fromTo("[data-hero-accent]", { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0.2);
+      }
     }
 
     const scroll = gsap.timeline({

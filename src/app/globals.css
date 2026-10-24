@@ -12,9 +12,13 @@
 }
 
 :root { color-scheme: light; }
-html { scroll-behavior: auto; }
+html {
+  scroll-behavior: auto;
+  overflow-x: clip;
+}
 body {
-  @apply bg-white font-sans text-ink antialiased overflow-x-hidden;
+  @apply bg-white font-sans text-ink antialiased;
+  overflow-x: clip;
   text-rendering: optimizeLegibility;
 }
 ::selection { background: #3f7b3c; color: #fff; }
@@ -82,4 +86,21 @@ section[id] { scroll-margin-top: 76px; }
     transform: none !important;
   }
   .parallax-layer, .scroll-type-track { transform: none !important; }
+}
+.card {
+  width: 25%;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .card {
+    width: 50%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
 }

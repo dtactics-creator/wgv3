@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Logo from "@/components/Logo";
+
 import { company } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
     <main className="min-h-screen bg-paper text-ink">
       <div className="mx-auto max-w-4xl px-6 pb-28 pt-10 md:px-10 md:pt-14">
         <Link href="/" className="inline-block">
-          <Logo tone="dark" size="sm" layout="row" />
+          
         </Link>
 
         <p className="mt-16 text-[10px] font-semibold uppercase tracking-[0.34em] text-black/45">
@@ -129,7 +129,7 @@ export default function PrivacyPolicyPage() {
             <p className="mt-3 leading-relaxed text-black/70">
               <strong>{company.name}</strong><br />
               Email: <a href={`mailto:${company.email}`} className="text-wintergreen underline underline-offset-4">{company.email}</a><br />
-              Phone: {company.phone}<br />
+             
               Location: {company.location}
             </p>
           </section>

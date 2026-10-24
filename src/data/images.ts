@@ -6,7 +6,7 @@ export const IMAGES = {
   intro: "/img/Modern commercial architecture.webp",
   about: "/img/Commercial-Asset.webp",
   expertise: {
-    industrial: "/img/Industrial Spaces.webp",
+    industrial: "/img/Industrial Spaces.webp?v=2",
     plots: "/img/Industrial Plots.webp",
     commercial: "/img/Commercial architecture.webp",
     agricultural: "/img/Agricultural Lands.webp",
