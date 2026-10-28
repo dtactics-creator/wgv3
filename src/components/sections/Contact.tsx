@@ -45,7 +45,7 @@ const fieldClass =
 
 function ContactForm() {
   const [state, setState] = useState<
-    "idle" | "sending" | "success" | "error"
+    "idle" | "success" | "error"
   >("idle");
 
   const [error, setError] = useState("");
@@ -54,7 +54,7 @@ function ContactForm() {
 
   const [otherInterest, setOtherInterest] = useState("");
 
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -77,18 +77,23 @@ function ContactForm() {
       message: String(fd.get("message") ?? ""),
     };
 
-    console.log("Enquiry payload:", payload);
-
-    setState("sending");
     setError("");
 
     try {
-      // Simulate network request for static demo
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-
+      const subject = `Property enquiry from ${payload.fullName}`;
+      const body = [
+        `Full name: ${payload.fullName}`,
+        `Company: ${payload.company || "Not provided"}`,
+        `Phone: ${payload.phone}`,
+        `Email: ${payload.email}`,
+        `Location: ${payload.location || "Not provided"}`,
+        `Interested in: ${payload.interest}`,
+        `Message: ${payload.message || "Not provided"}`,
+      ].join("\n");
+      window.location.href = `mailto:${company.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       setState("success");
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError("Could not open your email app. Please email us directly.");
       setState("error");
     }
   }
@@ -121,8 +126,8 @@ function ContactForm() {
         </p>
 
         <p className="mt-4 max-w-md text-base leading-relaxed text-black/60">
-          Your enquiry has been received. Our team will respond privately — we
-          aim to reply within one business day.
+          Your email app should open with your enquiry addressed to our team.
+          Please send the email to complete your enquiry.
         </p>
 
         <button
@@ -274,12 +279,9 @@ function ContactForm() {
       <div className="mt-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <button
           type="submit"
-          disabled={state === "sending"}
-          className="group inline-flex items-center justify-center gap-3 rounded-full bg-ink px-9 py-4 text-[11px] font-semibold uppercase tracking-[0.26em] text-white transition-colors duration-300 hover:bg-wintergreen disabled:cursor-wait disabled:opacity-60"
+          className="group inline-flex items-center justify-center gap-3 rounded-full bg-ink px-9 py-4 text-[11px] font-semibold uppercase tracking-[0.26em] text-white transition-colors duration-300 hover:bg-wintergreen"
         >
-          <span>
-            {state === "sending" ? "Submitting…" : "Submit Enquiry"}
-          </span>
+          <span>Submit Enquiry</span>
 
           <Arrow className="h-3.5 w-3.5 transition-transform duration-500 ease-out group-hover:translate-x-1.5" />
         </button>

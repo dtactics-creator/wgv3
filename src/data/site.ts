@@ -9,7 +9,7 @@ export const company = {
   incorporated: "24 October 2025",
   roc: "ROC Chennai",
   status: "Active",
-  email: "enquiry@wintergreenrealty.com",
+  email: "enquiry@wgreenrealty.com",
   phone: "",
   phoneNote: "Placeholder — to be replaced with the office line",
   location: "Chennai · Tamil Nadu · India",
